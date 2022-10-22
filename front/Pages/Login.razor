@@ -3,6 +3,7 @@
 @using Services;
 
 @inject UserService service
+@inject NavigationManager nav
 
 <div class="logregcontainer">
     <div class="registercontainer">
@@ -36,6 +37,12 @@
         </button>
     </div>
     <div class="logincontainer">
+        @if (login != null)
+        {
+        <p>
+            <label>@login</label>
+        </p>
+        }
         <p>
             <label>Nome de Usuario</label>
             <input type="text" @bind-value="@userId"/>
@@ -60,6 +67,8 @@
     private string repeatpassword;
     private DateTime birth;
     private string userId;
+    //string de erro
+    private string login;
 
     public async void CreateAccount()
     {
@@ -68,6 +77,15 @@
             this.userId,
             this.birth, 
             this.password);
+            
+            //deixar os campos em branco
+            this.name= "";
+            this.userId = "";
+            this.birth = DateTime.Now;
+            this.password = "";
+            this.repeatpassword	 = "";
+            //atualizar a tela
+            this.StateHasChanged();
     }
 
     public async void UserLogin()
@@ -78,11 +96,15 @@
         );
         if (result == null)
         {
-            Console.WriteLine("Não logou");
+            login = "Senha ou login incorretos.";
+            StateHasChanged();
+            return;
         }
         else
         {
-            Console.WriteLine("Logou");
+            login= "Logado com sucesso.";
+            StateHasChanged();
+            nav.NavigateTo("/");
         }
     }
 }

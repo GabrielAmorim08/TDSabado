@@ -15,6 +15,8 @@ Commandos Úteis
 - dotnet watch
 - dotnet add reference [caminho pro csproj]
 - Set-ExecutionPolicy -ExecutionPolicy ByPass -Scope CurrentUser
+- .\createmodel.ps1 Nome do servidor Nome do banco
+
 
 Links Importantes
 

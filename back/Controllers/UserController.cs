@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using dto;
-
+using back.Services;
 namespace back.Controllers;
 
 using Model;
@@ -11,7 +11,8 @@ public class UserController : ControllerBase
 {
     [HttpPost("login")]
     public IActionResult Login(
-        [FromBody]UsuarioDTO user
+        [FromBody]UsuarioDTO user,
+        [FromServices]TokenService service
     )
     {
         using TDSabadoContext context 
@@ -27,7 +28,7 @@ public class UserController : ControllerBase
         if (possibleUser.Userpass != user.Password)
             return BadRequest("Senha inválida!");
         
-        return Ok();
+        return Ok("Logado com sucesso");
     }
 
     [HttpPost("register")]
